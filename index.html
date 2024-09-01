@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Falso</title>
+
+    <script defer src="script.js"></script>
+    <script defer src="otroScript.js"></script>
+
+    <!-- bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+    <!-- íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <!-- css nuestro -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+    <!--Titulo-->
+    <div class="block is-flex is-flex-direction-row is-justify-content-center is-align-items-center">
+        <h1 class="title is-1">Gestor de tareas</h1>
+    </div>
+    <div class="block is-flex is-flex-direction-row is-justify-content-flex-end">
+        <button class="button is-small" id="theme-switcher">
+            <span class="material-symbols-outlined">dark_mode</span>
+        </button>
+        <button class="button is-small" id="add-task">agregar tarea</button>
+    </div>
+
+    <!--Columnas-->
+    <div class="columns is-multiline is-gap-3">
+        <div class="has-background-primary columna is-flex is-flex-direction-column is-align-items-center" id="backlog">
+            <h2 class="subtitle is-3">Backlog</h2>
+
+            <!--Aca borre el div de prueba con el que se comprobo es problema del diseño de la card-->
+
+            
+        </div>
+
+        <div class=" has-background-primary columna is-flex is-flex-direction-column is-align-items-center" id="to-do">
+            <h2 class="subtitle is-3">To-Do</h2>
+
+        </div>
+
+        <div class="column has-background-primary  columna is-flex-direction-column is-align-items-center"
+            id="in-progress">
+            <h2 class="subtitle is-3">In-Progress</h2>
+
+        </div>
+
+        <div class="column has-background-primary columna is-flex is-flex-direction-column is-align-items-center" id="blocked">
+            <h2 class="subtitle is-3">Blocked</h2>
+
+        </div>
+
+        <div class="column has-background-primary columna is-flex is-flex-direction-column is-align-items-center" id="done">
+            <h2 class="subtitle is-3">Done</h2>
+
+        </div>
+    </div>
+
+    <!-- Diálogo para agregar/editar tareas -->
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Agregar/Editar Tarea</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Título</p>
+                        <input type="text" />
+                    </div>
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Descripción</p>
+                        <input type="text" />
+                    </div>
+                </div>
+
+                <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Asignado</p>
+                        <input type="text" />
+                    </div>
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Prioridad</p>
+                        <input type="text" />
+                    </div>
+                </div>
+
+                <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Estado</p>
+                        <input type="text" />
+                    </div>
+                    <div class="block is-flex is-flex-direction-column">
+                        <p>Fecha límite</p>
+                        <input type="text" />
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <div class="buttons">
+                    <button class="button">Cancelar</button>
+                    <button class="button is-success">Aceptar</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

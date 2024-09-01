@@ -1,0 +1,316 @@
+body {
+    font-family: Ubuntu, sans-serif;
+    height: 100vh;
+    padding: 20px;
+}
+
+.modal-card {
+    width: 80%;
+    height: 90%;
+}
+
+@media (width >=768px) {
+    .modal-card {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@media (width >=1440px) {
+    .modal-card {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+/*DECORACION COLUMNAS*/
+.columna {
+    position: relative;
+    width: 270px;
+    background: #07182E;
+    border-radius: 20px;
+    margin-bottom: 10px; /* Espacio entre tarjetas */
+    padding: 10px;
+    box-sizing: border-box; /* Incluye el padding en el ancho y alto total */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea el contenido al inicio del contenedor */
+    overflow: hidden; /* Evita el desbordamiento del contenido */
+    z-index: 1; /* Asegura que el contenido esté por encima de los pseudoelementos */
+}
+
+.columna h2 {
+    z-index: 2;
+    color: white;
+    font-size: 1.8em;
+}
+
+.columna::before {
+    content: '';
+    position: absolute;
+    width: 200%; /* Asegura que cubra todo el contenedor */
+    height: 200%; /* Asegura que cubra todo el contenedor */
+    background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+    top: -50%;
+    left: -50%;
+    z-index: 0; /* Asegura que esté detrás del contenido */
+    animation: rotBGimg 5s linear infinite;
+    transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.columna::after {
+    content: '';
+    position: absolute;
+    background: #07182E;
+    inset: 5px;
+    border-radius: 15px;
+    z-index: 0; /* Asegura que esté detrás del contenido */
+}
+
+.contenedor_tarea {
+    z-index: 2; /* Asegura que esté por encima de los pseudoelementos */
+}
+
+
+/*ACA SE ROMPE TODO
+
+
+
+
+
+ACA SE ROMPE TODO
+
+*/
+
+/*carta para las tareas*/
+.card {
+    width: 320px;
+    height: 350px;
+    background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+    border-radius: 20px;
+    transition: all .3s;
+    margin: 10px;
+    display: inline-flex;
+    
+    
+   }
+   
+   .card2 {
+    width: 320px;
+    height: 350px;
+    background-color: rgba(26, 26, 26, 0.99);
+    border-radius: 20px;
+    transition: all .2s;
+    justify-content: center;
+    /*Esto es por si algun tipazo sigue escribiendo
+    sin meter enter que no se me rompa toda la card*/
+    overflow: hidden;
+  
+   }
+   
+   .card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+   }
+   
+   .card:hover {
+    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+   }
+   #generalcards{
+    opacity: 0.8;
+    
+   }
+   .Container{
+    display: flexbox;
+   }
+  
+
+  
+   button {
+    position: relative;
+    width: 11em;
+    height: 4em;
+    outline: none;
+    transition: 0.1s;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ddebf0;
+    
+  }
+  
+  
+  
+  
+  /*BOTON PARA ELIMINAR*/
+  
+  .eliminar {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: none;
+    color: #0f1923;
+    cursor: pointer;
+    position: relative;
+    padding: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all .15s ease;
+    display: flex;
+    margin: auto;
+    
+  }
+  
+  .eliminar::before,
+  .eliminar::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: calc(50% - 5px);
+    border: 1px solid #7D8082;
+    transition: all .15s ease;
+  }
+  
+  .eliminar::before {
+    top: 0;
+    border-bottom-width: 0;
+  }
+  
+  .eliminar::after {
+    bottom: 0;
+    border-top-width: 0;
+  }
+  
+  .eliminar:active,
+  .eliminar:focus {
+    outline: none;
+  }
+  
+  .eliminar:active::before,
+  .eliminar:active::after {
+    right: 3px;
+    left: 3px;
+  }
+  
+  .eliminar:active::before {
+    top: 3px;
+  }
+  
+  .eliminar:active::after {
+    bottom: 3px;
+  }
+  
+  .eliminar_lg {
+    position: relative;
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #0f1923;
+    overflow: hidden;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+  }
+  
+  .eliminar_lg::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    background-color: #0f1923;
+  }
+  
+  .eliminar_lg::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 4px;
+    height: 4px;
+    background-color: #0f1923;
+    transition: all .2s ease;
+  }
+  
+  .eliminar_sl {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: -1px;
+    left: -20px;/*valor original 8px*/
+    width: 0;
+    background-color: #ff4655;
+    transform: skew(-15deg);
+    transition: all .2s ease;
+  }
+  
+  .eliminar_text {
+    position: relative;
+  }
+  
+  .eliminar:hover {
+    color: #0f1923;
+  }
+  
+  .eliminar:hover .eliminar_sl {
+    width: calc(100% + 15px);
+  }
+  
+  .eliminar:hover .eliminar_lg::after {
+    background-color: #fff;
+  }
+  .cardtext{
+    color: antiquewhite;
+    margin-top: 10px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .labelForCard{
+    color: #ff4655;
+    margin-top: 10px;
+    
+  }
+  /*Esto es para el efecto de la segunda parte del titulo*/
+  @keyframes cosmicEffect {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.forzarCentrado { /*Paso de ser forzar centrado a ser el diseño del título*/
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333333;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    filter: brightness(1.5);
+    /*Esto de abajo es para el efecto cósmico*/
+    background: linear-gradient(120deg, #ffcc00, #ff33cc, #33ccff, #ffcc00);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    animation: cosmicEffect 5s infinite linear;
+}
