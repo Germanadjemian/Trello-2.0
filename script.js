@@ -72,43 +72,41 @@ function dragDrop(){
 dragDrop();
 
 function crearCartaConModal() {
-    // Obtener el título y la descripción del modal
+    // Obtener el título, la descripción y otros datos del modal
     const title = modal.querySelector("input[type='text']").value;
     const description = modal.querySelectorAll("input[type='text']")[1].value;
-    const asignated = modal.querySelectorAll("input[type='text']")[2].value;
-    const priority = modal.querySelectorAll("input[type='text']")[3].value;
-    const stateQ = modal.querySelectorAll("input[type='text']")[4].value;
+    const asignated = document.getElementById("asignado").value;
+    const priority = document.getElementById("prioridad").value;
+    const fecha_limite_value = modal.querySelector("input[type='date']").value; // Cambié el nombre de la variable
 
     // Verificar si se ingresó un título
     if (title) {
         // Crear un elemento div para la carta principal
         const cartaPrincipal = document.createElement("div");
         cartaPrincipal.className = "card";
-        cartaPrincipal.classList.add("contenedor_tarea")
+        cartaPrincipal.classList.add("contenedor_tarea");
 
         // Asignar un ID único a la carta principal
         const uniqueId = 'task-' + new Date().getTime();
         cartaPrincipal.setAttribute("id", uniqueId);
-        //ERA ESTO POR LO QUE SE ME ROMPIOO TODO LPM de el id de mierda que no se genera solo
 
         // Crear un elemento div para la carta secundaria
         const cartaSecundaria = document.createElement("div");
         cartaSecundaria.className = "card2";
         cartaSecundaria.addEventListener('input', saveColumnsContent);
-        
 
         // CREANDO EL CONTENIDO DE LA CARTA
 
-        //Titulo
+        // Título
         const titulo = document.createElement("p");
         titulo.className = "cardtext";
         titulo.textContent = title;
         titulo.contentEditable = true;
         titulo.classList.add("forzarCentrado");
 
-        //Descripcion de la task
+        // Descripción de la tarea
         const desc = document.createElement("span");
-        desc.contentEditable = false; //Esto aparte de vitar que cambien la prop en la carta hace que se escriba del color adecuado (cardText en vez de labelForCard)
+        desc.contentEditable = false;
         desc.className = "labelForCard";
         desc.textContent = "Descripción: ";
 
@@ -122,11 +120,11 @@ function crearCartaConModal() {
         descripcion.contentEditable = true;
         descripcion.addEventListener('input', saveColumnsContent);
 
-        //Persona Asignada
+        // Persona Asignada
         const asig = document.createElement("span");
-        asig.contentEditable = false
-        asig.className = "labelForCard"
-        asig.textContent = "Asignado: "
+        asig.contentEditable = false;
+        asig.className = "labelForCard";
+        asig.textContent = "Asignado: ";
 
         const asignadoSpan = document.createElement("span");
         asignadoSpan.textContent = asignated;
@@ -138,11 +136,11 @@ function crearCartaConModal() {
         asignado.contentEditable = true;
         asignado.addEventListener('input', saveColumnsContent);
 
-        //Prioridad de la tarea
+        // Prioridad de la tarea
         const prio = document.createElement("span");
-        prio.contentEditable = false
+        prio.contentEditable = false;
         prio.className = "labelForCard";
-        prio.textContent = "Prioridad: "; 
+        prio.textContent = "Prioridad: ";
 
         const prioridadSpan = document.createElement("span");
         prioridadSpan.textContent = priority;
@@ -154,20 +152,34 @@ function crearCartaConModal() {
         prioridad.contentEditable = true;
         prioridad.addEventListener('input', saveColumnsContent);
 
-        //Estado de la tarjeta
-        const state = document.createElement("span");
-        state.contentEditable = false
-        state.className = "labelForCard";
-        state.textContent = "Estado: ";
+        // Estado de la tarjeta (Fecha límite)
+        const fechaLimiteLabel = document.createElement("span");
+        fechaLimiteLabel.contentEditable = false;
+        fechaLimiteLabel.className = "labelForCard";
+        fechaLimiteLabel.textContent = "Fecha límite: ";
 
-        stateSpan = document.createElement("span");
-        stateSpan.textContent = stateQ;
+        const fechaLimiteInput = document.createElement("input");
+        fechaLimiteInput.type = "date";
+        fechaLimiteInput.value = fecha_limite_value;
+        fechaLimiteInput.className = "dateInput";
+
+        // Crear un elemento p para contener el texto de la fecha
+        const fechaLimiteSpan = document.createElement("span");
+        fechaLimiteSpan.textContent = fecha_limite_value;
 
         const estado = document.createElement("p");
         estado.className = "cardtext";
-        estado.appendChild(state);
-        estado.appendChild(stateSpan);
+        estado.appendChild(fechaLimiteLabel);
+        estado.appendChild(fechaLimiteSpan);
+        estado.appendChild(fechaLimiteInput);
         estado.contentEditable = true;
+
+        // Actualizar el texto del span cuando cambie la fecha
+        fechaLimiteInput.addEventListener('input', (event) => {
+            const newDate = event.target.value;
+            fechaLimiteSpan.textContent = newDate;
+        });
+
         estado.addEventListener('input', saveColumnsContent);
 
         // Crear botón de eliminar
@@ -195,18 +207,15 @@ function crearCartaConModal() {
         cartaSecundaria.appendChild(estado);
         cartaPrincipal.appendChild(cartaSecundaria);
         
-        //intentando que se pueda arrastrar la carta
-      // Para la carta principal
-    cartaPrincipal.setAttribute("draggable", "true");
-    cartaPrincipal.addEventListener('dragstart', (event) => {
-    event.dataTransfer.setData('text/plain', event.target.id);
-    cartaPrincipal.classList.add('dragging');
-    });
-    cartaPrincipal.addEventListener('dragend', () => {
-    cartaPrincipal.classList.remove('dragging');
-    });
-
-    
+        // Intentando que se pueda arrastrar la carta
+        cartaPrincipal.setAttribute("draggable", "true");
+        cartaPrincipal.addEventListener('dragstart', (event) => {
+            event.dataTransfer.setData('text/plain', event.target.id);
+            cartaPrincipal.classList.add('dragging');
+        });
+        cartaPrincipal.addEventListener('dragend', () => {
+            cartaPrincipal.classList.remove('dragging');
+        });
 
         // Agregar la carta principal al contenedor de cartas (e.g., backlogColumn)
         backlogColumn.appendChild(cartaPrincipal);
@@ -216,9 +225,9 @@ function crearCartaConModal() {
         modal.classList.remove("is-active");
 
         saveColumnsContent();
-    
     }
 }
+
 
 acceptModalButton.addEventListener("click",crearCartaConModal);
 
@@ -260,6 +269,13 @@ function reasginarEventos() {
             taskDiv.classList.remove('dragging');
         });
     });
+    //Reasignar el evento de edicion de texto cuando se cambia la fecha
+    document.querySelectorAll('.dateInput').forEach(fechaInput=>{
+        fechaInput.addEventListener('input', (event) => {
+            const newDate = event.target.value;
+            fechaInput.previousElementSibling.textContent = newDate;
+        });
+    })
 }
 
 function loadColumnsContent() {

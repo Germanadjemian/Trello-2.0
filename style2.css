@@ -4,6 +4,26 @@ body {
     padding: 20px;
 }
 
+#prioridad, #asignado{
+    width: 100%;
+    height: 40px; /* Igual a la altura del input */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 190px;
+}
+.fix{
+    width: 100%;
+    height: 30px; /* Igual a la altura del input */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 190px;
+}
+
+
 .modal-card {
     width: 80%;
     height: 90%;
@@ -324,5 +344,25 @@ ACA SE ROMPE TODO
     color: transparent;
 
     animation: cosmicEffect 5s infinite linear;
+}
+
+.dateInput {
+    width: 100%;
+    height: 40px; /* Igual a la altura del input de #prioridad y #asignado */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa; /* Color de fondo ligero */
+    color: #333; /* Color del texto */
+    max-width: 190px; /* Limita el ancho máximo */
+    box-sizing: border-box; /* Incluye el padding en el ancho y alto total */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dateInput:focus {
+    border-color: #00b7ff; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(0, 183, 255, 0.5); /* Añade un efecto de sombra */
+    outline: none; /* Elimina el contorno predeterminado del navegador */
 }
 

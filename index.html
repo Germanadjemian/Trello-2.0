@@ -74,38 +74,50 @@
                 <p class="modal-card-title">Agregar/Editar Tarea</p>
                 <button class="delete" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body" id="fixID">
                 <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
                     <div class="block is-flex is-flex-direction-column">
                         <p>Título</p>
-                        <input type="text" />
+                        <input type="text" class="fix"/>
                     </div>
                     <div class="block is-flex is-flex-direction-column">
                         <p>Descripción</p>
-                        <input type="text" />
+                        <input type="text" class="fix"/>
                     </div>
                 </div>
 
                 <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
                     <div class="block is-flex is-flex-direction-column">
-                        <p>Asignado</p>
-                        <input type="text" />
+                        <select id="asignado">
+                            <option value="">Seleccione una persona</option>
+                            <option value="María">María</option>
+                            <option value="Ezequiel">Ezequiel</option>
+                            <option value="Bruno">Bruno</option>
+                            <option value="German">Germán</option>
+                        </select>
                     </div>
                     <div class="block is-flex is-flex-direction-column">
-                        <p>Prioridad</p>
-                        <input type="text" />
+                        <select id="prioridad">
+                            <option value="">Seleccione una Prioridad</option>
+                            <option value="Baja">Baja</option>
+                            <option value="Media">Media</option>
+                            <option value="Alta">Alta</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
+                <!-- <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
                     <div class="block is-flex is-flex-direction-column">
                         <p>Estado</p>
                         <input type="text" />
+                    </div> -->
+                    <div class="block is-flex is-flex-direction-row is-justify-content-space-around">
+                        <div class="block is-flex is-flex-direction-column">
+                            <p>Fecha límite</p>
+                            <input type="date" class="fix"/>
+                        </div>
                     </div>
-                    <div class="block is-flex is-flex-direction-column">
-                        <p>Fecha límite</p>
-                        <input type="text" />
-                    </div>
+                    
                 </div>
             </section>
             <footer class="modal-card-foot">
