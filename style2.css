@@ -145,7 +145,7 @@ ACA SE ROMPE TODO
     justify-content: center;
     /*Esto es por si algun tipazo sigue escribiendo
     sin meter enter que no se me rompa toda la card*/
-    overflow: hidden;
+    overflow: auto;
   
    }
    
