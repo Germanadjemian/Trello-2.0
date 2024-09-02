@@ -274,6 +274,7 @@ function reasginarEventos() {
         fechaInput.addEventListener('input', (event) => {
             const newDate = event.target.value;
             fechaInput.previousElementSibling.textContent = newDate;
+            saveColumnsContent();
         });
     })
 }
