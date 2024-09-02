@@ -2,7 +2,7 @@
 const theme_switch_button = document.getElementById("theme-switcher");
 theme_switch_button.addEventListener("click", () => {
     // Cambiar tema en el HTML
-    document.getElementsByTagName("html")[0].classList.toggle("theme-dark");
+    document.getElementsByTagName("html")[0].classList.toggle("theme-dark"); //el toogle hace que si no tiene la clase se lo agrega y si la tiene la elimina
 
     // Cambiar el ícono del botón
     const iconSpan = theme_switch_button.querySelector("span");

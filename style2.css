@@ -22,6 +22,13 @@ body {
         height: 80%;
     }
 }
+.columns{
+    display:  flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
 
 /*DECORACION COLUMNAS*/
 .columna {
@@ -38,6 +45,10 @@ body {
     align-items: flex-start; /* Alinea el contenido al inicio del contenedor */
     overflow: hidden; /* Evita el desbordamiento del contenido */
     z-index: 1; /* Asegura que el contenido esté por encima de los pseudoelementos */
+    flex: 1 1 270px; /* Las columnas ocuparán al menos 270px, pero pueden expandirse si hay espacio */
+    max-width: 300px; /* Limita el ancho máximo de las columnas, pero creo que al ser 5 queda mejor que la ultima se expanda mas si se puede */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
+    
 }
 
 .columna h2 {
@@ -314,3 +325,4 @@ ACA SE ROMPE TODO
 
     animation: cosmicEffect 5s infinite linear;
 }
+
