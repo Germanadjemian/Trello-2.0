@@ -71,13 +71,18 @@ function dragDrop(){
 
 dragDrop();
 
-function crearCartaConModal() {
+function crearCartaConModal(element) {
     // Obtener el título, la descripción y otros datos del modal
-    const title = modal.querySelector("input[type='text']").value;
+    /*const title = modal.querySelector("input[type='text']").value;
     const description = modal.querySelectorAll("input[type='text']")[1].value;
     const asignated = document.getElementById("asignado").value;
     const priority = document.getElementById("prioridad").value;
-    const fecha_limite_value = modal.querySelector("input[type='date']").value; // Cambié el nombre de la variable
+    const fecha_limite_value = modal.querySelector("input[type='date']").value; // Cambié el nombre de la variable*/
+    title = element.titulo;
+    description = element.descripcion;
+    asignated = element.asignado;
+    priority = element.prioridad;
+    fecha_limite_value = element.fecha;
 
     // Verificar si se ingresó un título
     if (title) {
@@ -118,7 +123,7 @@ function crearCartaConModal() {
         descripcion.appendChild(desc);
         descripcion.appendChild(descriptionSpan);
         descripcion.contentEditable = true;
-        //descripcion.addEventListener('input', saveColumnsContent);
+        descripcion.addEventListener('input', saveColumnsContent);
 
         // Persona Asignada
         const asig = document.createElement("span");
@@ -134,7 +139,7 @@ function crearCartaConModal() {
         asignado.appendChild(asig);
         asignado.appendChild(asignadoSpan);
         asignado.contentEditable = true;
-        //asignado.addEventListener('input', saveColumnsContent);
+        asignado.addEventListener('input', saveColumnsContent);
 
         // Prioridad de la tarea
         const prio = document.createElement("span");
@@ -150,7 +155,7 @@ function crearCartaConModal() {
         prioridad.appendChild(prio);
         prioridad.appendChild(prioridadSpan);
         prioridad.contentEditable = true;
-        //prioridad.addEventListener('input', saveColumnsContent);
+        prioridad.addEventListener('input', saveColumnsContent);
 
         // Estado de la tarjeta (Fecha límite)
         const fechaLimiteLabel = document.createElement("span");
@@ -255,7 +260,7 @@ function reasginarEventos() {
         button.addEventListener('click', function() {
             borrarCarta(this); //3 horas jodido por este this  ._.
         });
-        console.log("Evento eliminar reasignado");
+        //console.log("Evento eliminar reasignado");
     });
 
     // Reasignar eventos de arrastrar y soltar para las cartas
@@ -277,10 +282,6 @@ function reasginarEventos() {
             saveColumnsContent();
         });
     })
-
-    document.querySelectorAll('.card2').forEach(carta=>{
-        carta.addEventListener('input', saveColumnsContent)
-    });
 }
 
 function loadColumnsContent() {
@@ -300,3 +301,62 @@ function loadColumnsContent() {
 }
 
 window.addEventListener("load", loadColumnsContent);
+
+
+
+
+
+
+
+
+
+async function fetchGetCardsData() {
+    try{
+        const cards = await fetch('http://localhost:3000/api/tasks');
+        if (cards.ok) {
+            const data = await cards.json();
+            console.log(data)
+            return data
+        }
+    }
+    catch(error) {
+        console.error(error)
+    }
+  }
+
+  //fetchGetCardsData()
+
+  async function postCards() {
+    const url = "";
+    const tarjeta = {
+        titulo: "asignar_titulo",
+        descripcion: "asginar_desc",
+        asignado: "yo",
+        fecha: new Date("2024-09-04"), //Asi es el formato para crear la fecha en el json
+        prioridad: "asginar_prio"
+    }
+
+    try{
+        const cards =  await fetchGetCardsData();
+        if(cards){
+            //asignar datos del server a las cards
+            console.log(typeof(cards))
+            cards.forEach(element => {
+                tarjeta.titulo = element.title;
+                tarjeta.descripcion = element.description;
+                tarjeta.asignado = element.assignedTo;
+                tarjeta.fecha = element.endDate;
+                tarjeta.prioridad = element.priority;
+                crearCartaConModal(tarjeta)
+                console.log("Exito")
+            });
+        }
+        else{
+            console.log("No se pudo obtener el array de cartas")
+        }
+    }
+    catch(error){
+        console.log("Error: "+error)
+    }
+  }
+  postCards();
