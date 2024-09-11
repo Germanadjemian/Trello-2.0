@@ -21,6 +21,7 @@ exit_modal.addEventListener("click", () => {
 const addTaskButton = document.getElementById("add-task");
 const modal = document.querySelector(".modal");
 const cancelModalButton = modal.querySelector(".delete");
+const cancelModalButton2 = modal.querySelector(".delete2");
 const acceptModalButton = modal.querySelector(".is-success");
 const backlogColumn = document.getElementById("backlog");
 
@@ -30,7 +31,10 @@ addTaskButton.addEventListener("click", () => {
 });
 
 // Ocultar el modal
-cancelModalButton.addEventListener("click", () => {
+cancelModalButton.addEventListener("click", () => { //esta es la X
+    modal.classList.remove("is-active");
+});
+cancelModalButton2.addEventListener("click", () => { //este es el cancelar
     modal.classList.remove("is-active");
 });
 
@@ -277,7 +281,7 @@ function reasginarEventos() {
             saveColumnsContent();
         });
     })
-
+    //Reasginar guardado de datos cuando se edita una carta
     document.querySelectorAll('.card2').forEach(carta=>{
         carta.addEventListener('input', saveColumnsContent)
     });
