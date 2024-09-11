@@ -21,6 +21,7 @@ exit_modal.addEventListener("click", () => {
 const addTaskButton = document.getElementById("add-task");
 const modal = document.querySelector(".modal");
 const cancelModalButton = modal.querySelector(".delete");
+const cancelModalButton2 = modal.querySelector(".delete2");
 const acceptModalButton = modal.querySelector(".is-success");
 const backlogColumn = document.getElementById("backlog");
 
@@ -31,6 +32,9 @@ addTaskButton.addEventListener("click", () => {
 
 // Ocultar el modal
 cancelModalButton.addEventListener("click", () => {
+    modal.classList.remove("is-active");
+});
+cancelModalButton2.addEventListener("click", () => {
     modal.classList.remove("is-active");
 });
 
@@ -71,18 +75,19 @@ function dragDrop(){
 
 dragDrop();
 
-function crearCartaConModal(element) {
+function crearCartaConModal(tarjeta) {
     // Obtener el título, la descripción y otros datos del modal
     /*const title = modal.querySelector("input[type='text']").value;
     const description = modal.querySelectorAll("input[type='text']")[1].value;
-    const asignated = document.getElementById("asignado").value;
-    const priority = document.getElementById("prioridad").value;
+    const asignated = document.gettarjetaById("asignado").value;
+    const priority = document.gettarjetaById("prioridad").value;
     const fecha_limite_value = modal.querySelector("input[type='date']").value; // Cambié el nombre de la variable*/
-    title = element.titulo;
-    description = element.descripcion;
-    asignated = element.asignado;
-    priority = element.prioridad;
-    fecha_limite_value = element.fecha;
+    title = tarjeta.titulo;
+    description = tarjeta.descripcion;
+    asignated = tarjeta.asignado;
+    priority = tarjeta.prioridad;
+    fecha_limite_value = tarjeta.fecha;
+    id_carta = tarjeta.id;
 
     // Verificar si se ingresó un título
     if (title) {
@@ -91,7 +96,7 @@ function crearCartaConModal(element) {
         cartaPrincipal.className = "card";
         cartaPrincipal.classList.add("contenedor_tarea");
 
-        // Asignar un ID único a la carta principal
+        // Asignar un ID único a la carta principal, esto es para el drag and drop
         const uniqueId = 'task-' + new Date().getTime();
         cartaPrincipal.setAttribute("id", uniqueId);
 
@@ -190,8 +195,11 @@ function crearCartaConModal(element) {
         // Crear botón de eliminar
         let eliminar = document.createElement("button");
         eliminar.className = "eliminar";
-        eliminar.onclick = function() { borrarCarta(this) };
-
+        eliminar.setAttribute("id",id_carta); //para tener una referencia de que borrar en el server
+        eliminar.onclick = function() { borrarCarta(this, eliminar.id) };//Me eliminaba solo el ultimo porque tenia id_carta en vez de eliminar.id, al tener id_carta se actualizaba todo el rato la referencia cuando creaba una carta nueva
+        console.log("El id de la carta es: ")
+        console.log(id_carta)
+        
         let eliminar_lg = document.createElement("span");
         let eliminar_sl = document.createElement("span");
         let eliminar_text = document.createElement("span");
@@ -234,12 +242,13 @@ function crearCartaConModal(element) {
 }
 
 
-acceptModalButton.addEventListener("click",crearCartaConModal);
+acceptModalButton.addEventListener("click",fetchPostCards);
 
-function borrarCarta(botonEliminar){
+function borrarCarta(botonEliminar, id){
     //Borra la carta 
     const cartaPorEliminar= botonEliminar.parentElement.parentElement;
     cartaPorEliminar.remove();
+    fetchDeleteCard(id);
     saveColumnsContent();
   }
  
@@ -304,12 +313,6 @@ window.addEventListener("load", loadColumnsContent);
 
 
 
-
-
-
-
-
-
 async function fetchGetCardsData() {
     try{
         const cards = await fetch('http://localhost:3000/api/tasks');
@@ -326,7 +329,7 @@ async function fetchGetCardsData() {
 
   //fetchGetCardsData()
 
-  async function postCards() {
+  async function fetchGetCards() {
     const url = "";
     const tarjeta = {
         titulo: "asignar_titulo",
@@ -347,6 +350,7 @@ async function fetchGetCardsData() {
                 tarjeta.asignado = element.assignedTo;
                 tarjeta.fecha = element.endDate;
                 tarjeta.prioridad = element.priority;
+                tarjeta.id = element.id;
                 crearCartaConModal(tarjeta)
                 console.log("Exito")
             });
@@ -359,4 +363,61 @@ async function fetchGetCardsData() {
         console.log("Error: "+error)
     }
   }
-  postCards();
+  //fetchGetCards();
+
+  async function fetchPostCards() {
+    const title = modal.querySelector("input[type='text']").value;
+    const description = modal.querySelectorAll("input[type='text']")[1].value;
+    const asignated = document.getElementById("asignado").value;
+    const priority = document.getElementById("prioridad").value;
+    const fecha_limite_value = modal.querySelector("input[type='date']").value;
+
+    const tarjeta = {
+        titulo: title,
+        descripcion: description,
+        asignado: asignated,
+        fecha: fecha_limite_value, // Formato para crear la fecha en el JSON
+        prioridad: priority
+    }
+    try {
+        const response = await fetch('http://localhost:3000/api/tasks', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(tarjeta)
+        });
+        
+        if(response.ok){
+            const textResponse = await response.text()
+            console.log(textResponse);
+            tarjeta.id = textResponse;
+            crearCartaConModal(tarjeta);
+        } else {
+            console.log("El estado es: " + response.status);
+        }
+
+    } catch (error) { // Corregido
+        console.log("ERROR: " + error);
+    }
+}
+
+
+async function fetchDeleteCard(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/tasks/${id}`, { 
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        });
+        
+        if (response.ok) {
+            console.log("Tarea eliminada exitosamente");
+        } else {
+            console.log("El estado es: " + response.status);
+        }
+
+    } catch (error) {
+        console.log("ERROR: " + error);
+    }
+}
+
+//fetchDeleteCard("7b36f20989a"); Funciona
+
